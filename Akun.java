@@ -6,6 +6,7 @@ public class Akun {
         this.username = username;
         this.password = password;
         this.next = null;
+        RiwayarUser daftarRiwayat = new RiwayarUser();
     }
 
     public void setNext(Akun next){

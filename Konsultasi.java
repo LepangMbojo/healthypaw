@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class consull {
+public class Konsultasi {
     DokterHewan head,tail;
 
     public void add(String namaDokter, String jadwal, int umurDokter, int biayaKonsul, double rating) {
@@ -9,36 +9,35 @@ public class consull {
         if (head == null) {
             head = DokterBaru;
             tail = DokterBaru;
-            head.setNext(head);
-            head.setPrev(head);
-        } else {
+        } 
+        else {
             tail.setNext(DokterBaru);
             DokterBaru.setPrev(tail);
             DokterBaru.setNext(head);
-            head.setPrev(DokterBaru);
             tail = DokterBaru;
+            head.setPrev(tail);
         }
     }
 
-     public void selectionSort() {
-           DokterHewan start = head;
+    public void selectionSort() {
+        DokterHewan start = head;
 
-    do {
-        DokterHewan minNode = start;
-        DokterHewan curr = start.getNext();
+        do {
+            DokterHewan minNode = start;
+            DokterHewan curr = start.getNext();
 
-        while (curr != head) {
-            if (curr.rating < minNode.rating) {
-                minNode = curr;
+            while (curr != head) {
+                if (curr.rating < minNode.rating) {
+                    minNode = curr;
+                }
+                curr = curr.getNext();
             }
-            curr = curr.getNext();
-        }
 
-        swapNodeData(start, minNode);
+            swapNodeData(start, minNode);
 
-        start = start.getNext();
-    } while (start != head); 
-}
+            start = start.getNext();
+        } while (start != head); 
+    }
     
     public void swapNodeData(DokterHewan node1, DokterHewan node2) {
 
@@ -62,11 +61,12 @@ public class consull {
         node1.rating = node2.rating;
         node2.rating = temprating;
     }
+
     public void navigateDoctors() {
         if (head == null) {
-            System.out.println("╔══════════════════════════╗");
-            System.out.println("║ Tidak ada data dokter.   ║");
-            System.out.println("╚══════════════════════════╝");
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |    TIDAK ADA DOKTER     | |");
+            System.out.println("|+|=========================|+|");
             return;
         }
     
@@ -75,6 +75,7 @@ public class consull {
         boolean exit = false;
     
         while (!exit) {
+            
             System.out.println("\n╔══════════════════════════╗");
             System.out.println("║       PILIH AKSI         ║");
             System.out.println("╠══════════════════════════╣");
@@ -90,10 +91,10 @@ public class consull {
     
             switch (choice) {
                 case 1:
-                    displayDoctor(current, true);
+                    current = displayDoctor(current.getNext());
                     break;
                 case 2:
-                    current = displayDoctor(current, false);
+                    current = displayDoctor(current.getPrev());
                     break;
                 case 3:
                     System.out.print("Masukkan nama dokter yang ingin dicari: ");
@@ -111,7 +112,7 @@ public class consull {
     
         scanner.close();
     }
-    private DokterHewan displayDoctor(DokterHewan current, boolean isNext) {
+    private DokterHewan displayDoctor(DokterHewan current) {
         if (current == null) {
             return null;
         }
@@ -124,39 +125,36 @@ public class consull {
         System.out.println("Rating      : " + current.rating);
         System.out.println("==============================================");
     
-        if (isNext) {
-            return current.getNext();
-        } else {
-            return current.getPrev();
-        }
+       return current;
     }
 
-public void searchDoctor(String targetName) {
-    if (head == null) {
-        System.out.println("╔════════════════════════════╗");
-        System.out.println("║ Tidak ada data dokter.     ║");
-        System.out.println("╚════════════════════════════╝");
-        return;
-    }
-
-    DokterHewan curr = head;
-
-    System.out.println("\n╔════════════════════════════════════╗");
-    System.out.println("║      HASIL PENCARIAN DOKTER        ║");
-    System.out.println("╚════════════════════════════════════╝");
-
-    do {
-        if (curr.namaDokter.equalsIgnoreCase(targetName)) {
-            System.out.println("\n==============================================");
-            System.out.println("Nama Dokter : " + curr.namaDokter);
-            System.out.println("Jadwal      : " + curr.jadwal);
-            System.out.println("Umur        : " + curr.umurDokter + " tahun");
-            System.out.println("Biaya Konsul: Rp " + curr.biayaKonsul);
-            System.out.println("Rating      : " + curr.rating);
-            System.out.println("==============================================");
-            break;
+    public void searchDoctor(String targetName) {
+        if (head == null) {
+            System.out.println("╔════════════════════════════╗");
+            System.out.println("║ Tidak ada data dokter.     ║");
+            System.out.println("╚════════════════════════════╝");
+            return;
         }
-        curr = curr.getNext();
-    } while (curr != head); 
 
-}}
+        DokterHewan curr = head;
+
+        System.out.println("\n╔════════════════════════════════════╗");
+        System.out.println("║      HASIL PENCARIAN DOKTER        ║");
+        System.out.println("╚════════════════════════════════════╝");
+
+        do {
+            if (curr.namaDokter.equalsIgnoreCase(targetName)) {
+                System.out.println("\n==============================================");
+                System.out.println("Nama Dokter : " + curr.namaDokter);
+                System.out.println("Jadwal      : " + curr.jadwal);
+                System.out.println("Umur        : " + curr.umurDokter + " tahun");
+                System.out.println("Biaya Konsul: Rp " + curr.biayaKonsul);
+                System.out.println("Rating      : " + curr.rating);
+                System.out.println("==============================================");
+                break;
+            }
+            curr = curr.getNext();
+        } while (curr != head); 
+
+    }
+}

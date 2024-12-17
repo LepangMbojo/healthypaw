@@ -13,6 +13,17 @@ public class MenuAwal {
         }
     }
 
+    public boolean login(String username, String password) {
+        Akun current = head;
+        while (current != null) {
+            if (current.username.equals(username) && current.password.equals(password)) {
+                return true;
+            }
+            current = current.getNext();
+        }
+        return false;
+    }
+
     public boolean checkUsername(String username){
         Akun current = head;
         while (current != null) {

@@ -11,6 +11,7 @@ public class DokterHewan {
         this.biayaKonsul = biayaKonsul;
         this.rating = rating;
         this.next = null;
+        AntrianKonsultasi daftarAntrian = new AntrianKonsultasi();
     }
 
     public void setNext(DokterHewan next){

@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class HealthyPaw {
     Scanner scanner = new Scanner(System.in);
     MenuAwal HPaw = new MenuAwal();
+    Konsultasi HPawKonsul = new Konsultasi();
 
     void tampilanAwal(){
         while (true) {
@@ -20,8 +21,7 @@ public class HealthyPaw {
             String answer = scanner.nextLine();
             
             if (answer.equalsIgnoreCase("log-in")){
-                System.out.println("A");
-                break;
+                tampilanLogIn();
             }
             else if (answer.equalsIgnoreCase("sign-uP")){
                 tampilanSignUp();
@@ -70,6 +70,12 @@ public class HealthyPaw {
             String username = scanner.nextLine();
             System.out.print("   Masukkan Password: ");
             String password = scanner.nextLine();
+            if (HPaw.login(username, password)){
+                tampilanMainMenu();
+            }
+            else {
+                System.out.println("Username atau Password Salah");
+            }
         }
     }
 
@@ -90,15 +96,14 @@ public class HealthyPaw {
             String answer = scanner.nextLine();
             
             if (answer.equalsIgnoreCase("konsultasi")){
-                System.out.println("A");
-                break;
+                HPawKonsul.navigateDoctors();
             }
             else if (answer.equalsIgnoreCase("riwayat")){
                 System.out.println("A");
                 break;
             }
             else if (answer.equalsIgnoreCase("log-out")){
-                System.out.println("A");
+                tampilanAwal();
             }
             else {
                 System.out.println("\nErrorr!!");
@@ -106,8 +111,29 @@ public class HealthyPaw {
         }
     }
 
+    void menuKonsultasi(){
+        while (true) {
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |  /\\___/\\                | |"  );
+            System.out.println("| | ( 0 . 0 )   HEALTHYPAW  | |");
+            System.out.println("| |   > ^ <                 | |");
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |       LIST DOKTER       | |");
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |       CARI DOKTER       | |");
+            System.out.println("|+|=========================|+|");
+        }
+    }
+
     public void main(String[] args) {
-        tampilanAwal();
+        HPawKonsul.add("Dr. Halid", "Senin 13.00 - 16.00", 27, 50000, 4.5);
+        HPawKonsul.add("Dr. Cikey", "Jumat 08.00 - 16.00", 27, 75000, 4.7);
+        HPawKonsul.add("Dr. Jaye", "Selasa 13.00 - 20.00", 27, 50000, 4.8);
+
+        System.out.println(HPawKonsul.head.namaDokter);
+        System.out.println(HPawKonsul.tail.namaDokter);
+        // tampilanAwal();
+        HPawKonsul.navigateDoctors();
     }
     
 }
