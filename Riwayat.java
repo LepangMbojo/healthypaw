@@ -1,17 +1,13 @@
 public class Riwayat {
-    public String riwayatUser;
-    private Riwayat next;
+    public String namaDokter;
+    public String tanggal;
+    public int biayaKonsul;
+    public Riwayat next;
 
-    public Riwayat(String riwayatUser){
-        this.riwayatUser = riwayatUser;
+    public Riwayat(String namaDokter, String tanggal, int biayaKonsul) {
+        this.namaDokter = namaDokter;
+        this.tanggal = tanggal;
+        this.biayaKonsul = biayaKonsul;
         this.next = null;
-    }
-
-    public void setNext(Riwayat next){
-        this.next = next;
-    }
-
-    public Riwayat getNext(){
-        return this.next;
     }
 }
