@@ -3,6 +3,7 @@ public class DokterHewan {
     public int umurDokter, biayaKonsul;
     public double rating;
     private DokterHewan next, prev;
+    private AntrianKonsultasi antrian;
 
     public DokterHewan(String namaDokter, String jadwal, int umurDokter, int biayaKonsul, double rating){
         this.namaDokter = namaDokter;
@@ -11,7 +12,7 @@ public class DokterHewan {
         this.biayaKonsul = biayaKonsul;
         this.rating = rating;
         this.next = null;
-        AntrianKonsultasi daftarAntrian = new AntrianKonsultasi();
+        this.antrian = new AntrianKonsultasi();
     }
 
     public void setNext(DokterHewan next){
@@ -29,4 +30,8 @@ public class DokterHewan {
     public DokterHewan getPrev(){
         return this.prev;
     }
+    public AntrianKonsultasi getAntrian() {
+        return antrian;
+    }
+
 }

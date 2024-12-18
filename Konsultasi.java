@@ -1,7 +1,9 @@
+
+
 import java.util.Scanner;
 
 public class Konsultasi {
-    DokterHewan head,tail;
+    DokterHewan head, tail;
 
     public void add(String namaDokter, String jadwal, int umurDokter, int biayaKonsul, double rating) {
         DokterHewan DokterBaru = new DokterHewan(namaDokter, jadwal, umurDokter, biayaKonsul, rating);
@@ -9,8 +11,7 @@ public class Konsultasi {
         if (head == null) {
             head = DokterBaru;
             tail = DokterBaru;
-        } 
-        else {
+        } else {
             tail.setNext(DokterBaru);
             DokterBaru.setPrev(tail);
             DokterBaru.setNext(head);
@@ -36,9 +37,9 @@ public class Konsultasi {
             swapNodeData(start, minNode);
 
             start = start.getNext();
-        } while (start != head); 
+        } while (start != head);
     }
-    
+
     public void swapNodeData(DokterHewan node1, DokterHewan node2) {
 
         String tempnamadokter = node1.namaDokter;
@@ -69,13 +70,13 @@ public class Konsultasi {
             System.out.println("|+|=========================|+|");
             return;
         }
-    
+
         DokterHewan current = head;
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
-    
+
         while (!exit) {
-            
+
             System.out.println("\n╔══════════════════════════╗");
             System.out.println("║       PILIH AKSI         ║");
             System.out.println("╠══════════════════════════╣");
@@ -85,10 +86,10 @@ public class Konsultasi {
             System.out.println("║ 4. Keluar                ║");
             System.out.println("╚══════════════════════════╝");
             System.out.print("Masukkan pilihan (1/2/3/4): ");
-    
+
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
-    
+            scanner.nextLine();
+
             switch (choice) {
                 case 1:
                     current = displayDoctor(current.getNext());
@@ -109,14 +110,15 @@ public class Konsultasi {
                     System.out.println("\nPilihan tidak valid. Silakan masukkan 1, 2, 3, atau 4.");
             }
         }
-    
+
         scanner.close();
     }
+
     private DokterHewan displayDoctor(DokterHewan current) {
         if (current == null) {
             return null;
         }
-    
+
         System.out.println("\n==============================================");
         System.out.println("Nama Dokter : " + current.namaDokter);
         System.out.println("Jadwal      : " + current.jadwal);
@@ -124,8 +126,8 @@ public class Konsultasi {
         System.out.println("Biaya Konsul: Rp " + current.biayaKonsul);
         System.out.println("Rating      : " + current.rating);
         System.out.println("==============================================");
-    
-       return current;
+        current.getAntrian().displayQueue();
+        return current;
     }
 
     public void searchDoctor(String targetName) {
@@ -151,10 +153,23 @@ public class Konsultasi {
                 System.out.println("Biaya Konsul: Rp " + curr.biayaKonsul);
                 System.out.println("Rating      : " + curr.rating);
                 System.out.println("==============================================");
+                curr.getAntrian().displayQueue();
                 break;
             }
             curr = curr.getNext();
-        } while (curr != head); 
+        } while (curr != head);
+    }
+//nambah pasien
+    public DokterHewan Tambahpatiendidokter(String namaDokter, String username, String jenisHewan, int umur, int beratHewan) {
+        DokterHewan current = head;
 
+        while (current != null) {
+            if (current.namaDokter.equalsIgnoreCase(namaDokter)) {
+                current.getAntrian().enqueue(new Antrian(username, jenisHewan, umur, beratHewan));
+                return current;
+            }
+            current = current.getNext();
+        }
+        return null;
     }
 }
