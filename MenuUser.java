@@ -1,3 +1,4 @@
+
 public class MenuUser {
     private Akun head, tail;
 

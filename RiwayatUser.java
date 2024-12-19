@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class RiwayatUser {
     private Riwayat top;
 
@@ -14,7 +15,7 @@ public class RiwayatUser {
             top = newRiwayat;
         }
         else {
-            top.setNext(newRiwayat);
+            newRiwayat.setNext(top);
             top = newRiwayat;
         }
     }
@@ -60,6 +61,22 @@ public class RiwayatUser {
             System.out.println("|+|=========================|+|");
             current = current.getNext();
         }
+        while (true){
+            System.out.print("Back/Clear : ");
+            Scanner scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("back")){
+                break;
+            }
+            else if (answer.equalsIgnoreCase("clear")){
+                clear();
+                break;
+            }
+            else {
+                System.out.println("Error!!!");
+            }
+        }
+        
         
     }
 }

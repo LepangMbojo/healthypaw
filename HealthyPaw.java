@@ -75,6 +75,11 @@ public class HealthyPaw {
             }
             else {
                 System.out.println("Username atau Password Salah");
+                System.out.print("Continue/Back: ");
+                String answer = scanner.nextLine();
+                if (answer.equalsIgnoreCase("back")){
+                    break;
+                }
             }
         }
     }
@@ -115,6 +120,7 @@ public class HealthyPaw {
                 System.out.print("Masukkan Nominal: ");
                 int topUpSaldo = scanner.nextInt();
                 HPaw.topUpSaldo(HPaw.getAkun(username), topUpSaldo);
+                answer = scanner.nextLine();
             }
             else if (answer.equalsIgnoreCase("log-out")){
                 tampilanAwal();
