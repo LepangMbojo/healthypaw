@@ -3,7 +3,15 @@
 import java.util.Scanner;
 
 public class Konsultasi {
-    DokterHewan head, tail;
+    DokterHewan head,tail;
+    Scanner scanner = new Scanner(System.in);
+
+    void header(){
+        System.out.println("|+|=========================|+|");
+        System.out.println("| |  /\\___/\\                | |"  );
+        System.out.println("| | ( 0 . 0 )   HEALTHYPAW  | |");
+        System.out.println("| |   > ^ <                 | |");
+    }
 
     public void add(String namaDokter, String jadwal, int umurDokter, int biayaKonsul, double rating) {
         DokterHewan DokterBaru = new DokterHewan(namaDokter, jadwal, umurDokter, biayaKonsul, rating);
@@ -63,113 +71,130 @@ public class Konsultasi {
         node2.rating = temprating;
     }
 
-    public void navigateDoctors() {
+    public void navigateDoctors(Akun user) {
         if (head == null) {
+            header();
             System.out.println("|+|=========================|+|");
             System.out.println("| |    TIDAK ADA DOKTER     | |");
             System.out.println("|+|=========================|+|");
             return;
         }
-
         DokterHewan current = head;
-        Scanner scanner = new Scanner(System.in);
-        boolean exit = false;
+        displayDoctor(current);
 
-        while (!exit) {
-
-            System.out.println("\n╔══════════════════════════╗");
-            System.out.println("║       PILIH AKSI         ║");
-            System.out.println("╠══════════════════════════╣");
-            System.out.println("║ 1. Next Dokter           ║");
-            System.out.println("║ 2. Sebelumnya Dokter     ║");
-            System.out.println("║ 3. Cari Dokter           ║");
-            System.out.println("║ 4. Keluar                ║");
-            System.out.println("╚══════════════════════════╝");
-            System.out.print("Masukkan pilihan (1/2/3/4): ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    current = displayDoctor(current.getNext());
-                    break;
-                case 2:
-                    current = displayDoctor(current.getPrev());
-                    break;
-                case 3:
-                    System.out.print("Masukkan nama dokter yang ingin dicari: ");
-                    String targetName = scanner.nextLine();
-                    searchDoctor(targetName);
-                    break;
-                case 4:
-                    exit = true;
-                    System.out.println("\nTerima kasih telah menggunakan layanan ini!");
-                    break;
-                default:
-                    System.out.println("\nPilihan tidak valid. Silakan masukkan 1, 2, 3, atau 4.");
+            while (true) {
+            System.out.print("Next/Prev/Back/Enter/Urutkan: ");
+            String choice = scanner.nextLine();
+            
+            if (choice.equalsIgnoreCase("next")){
+                current = displayDoctor(current.getNext());
+            }
+            else if (choice.equalsIgnoreCase("prev")){
+                current = displayDoctor(current.getPrev());
+            }
+            else if (choice.equalsIgnoreCase("enter")){
+                current.daftarAntrian.display(user, current);
+                break;
+            }
+            else if (choice.equalsIgnoreCase("back")){
+                break;
+            }
+            else if (choice.equalsIgnoreCase("urutkan")){
+                selectionSort();
+            }
+            else {
+                System.out.println("Error!!");
             }
         }
-
-        scanner.close();
     }
 
     private DokterHewan displayDoctor(DokterHewan current) {
         if (current == null) {
             return null;
         }
-
-        System.out.println("\n==============================================");
-        System.out.println("Nama Dokter : " + current.namaDokter);
-        System.out.println("Jadwal      : " + current.jadwal);
-        System.out.println("Umur        : " + current.umurDokter + " tahun");
-        System.out.println("Biaya Konsul: Rp " + current.biayaKonsul);
-        System.out.println("Rating      : " + current.rating);
-        System.out.println("==============================================");
-        current.getAntrian().displayQueue();
-        return current;
+        header();
+        System.out.println("|+|=========================|+|");
+        System.out.println("   Nama Dokter : " + current.namaDokter);
+        System.out.println("   Jadwal      : " + current.jadwal);
+        System.out.println("   Umur        : " + current.umurDokter + " Tahun");
+        System.out.println("   Biaya Konsul: Rp " + current.biayaKonsul);
+        System.out.println("   Rating      : " + current.rating);
+        System.out.println("|+|=========================|+|");
+    
+       return current;
     }
 
-    public void searchDoctor(String targetName) {
-        if (head == null) {
-            System.out.println("╔════════════════════════════╗");
-            System.out.println("║ Tidak ada data dokter.     ║");
-            System.out.println("╚════════════════════════════╝");
-            return;
-        }
+    public void searchDoctor(String targetName, Akun user) {
+        while (true){
+            header();
+            if (head == null) {
+                System.out.println("|+|=========================|+|");
+                System.out.println("| |    TIDAK ADA DOKTER     | |");
+                System.out.println("|+|=========================|+|");
+                return;
+            }
 
-        DokterHewan curr = head;
+            DokterHewan current = head;
 
-        System.out.println("\n╔════════════════════════════════════╗");
-        System.out.println("║      HASIL PENCARIAN DOKTER        ║");
-        System.out.println("╚════════════════════════════════════╝");
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |  HASIL PENCARIAN DOKTER | |");
+            System.out.println("|+|=========================|+|");
 
-        do {
-            if (curr.namaDokter.equalsIgnoreCase(targetName)) {
-                System.out.println("\n==============================================");
-                System.out.println("Nama Dokter : " + curr.namaDokter);
-                System.out.println("Jadwal      : " + curr.jadwal);
-                System.out.println("Umur        : " + curr.umurDokter + " tahun");
-                System.out.println("Biaya Konsul: Rp " + curr.biayaKonsul);
-                System.out.println("Rating      : " + curr.rating);
-                System.out.println("==============================================");
-                curr.getAntrian().displayQueue();
+            do {
+                if (current.namaDokter.equalsIgnoreCase(targetName)) {
+                    System.out.println("|+|=========================|+|");
+                    System.out.println("   Nama Dokter : " + current.namaDokter);
+                    System.out.println("   Jadwal      : " + current.jadwal);
+                    System.out.println("   Umur        : " + current.umurDokter + " Tahun");
+                    System.out.println("   Biaya Konsul: Rp " + current.biayaKonsul);
+                    System.out.println("   Rating      : " + current.rating);
+                    System.out.println("|+|=========================|+|");
+                    break;
+                }
+                current = current.getNext();
+            } while (current != head);  
+
+            System.out.print("Back/Enter: ");
+            String choice = scanner.nextLine();
+            if (choice.equalsIgnoreCase("enter")){
+                current.daftarAntrian.display(user, current);
+            }
+            else if (choice.equalsIgnoreCase("back")){
                 break;
             }
-            curr = curr.getNext();
-        } while (curr != head);
+            else {
+                System.out.println("Error!!");
+            }
+        }
     }
-//nambah pasien
-    public DokterHewan Tambahpatiendidokter(String namaDokter, String username, String jenisHewan, int umur, int beratHewan) {
-        DokterHewan current = head;
 
-        while (current != null) {
-            if (current.namaDokter.equalsIgnoreCase(namaDokter)) {
-                current.getAntrian().enqueue(new Antrian(username, jenisHewan, umur, beratHewan));
-                return current;
+    public void setDokter(){
+        add("Dr. Farah", "Rabu 09.00 - 12.00", 32, 60000, 4.6);
+        add("Dr. Kamal", "Kamis 10.00 - 13.00", 40, 65000, 4.4);
+        add("Dr. Rina", "Senin 08.00 - 11.00", 29, 70000, 4.7);
+        add("Dr. Anis", "Selasa 14.00 - 18.00", 35, 50000, 4.9);
+        add("Dr. Zaky", "Sabtu 09.00 - 14.00", 33, 75000, 4.5);
+        add("Dr. Mira", "Minggu 15.00 - 18.00", 27, 55000, 4.6);
+        add("Dr. Dani", "Jumat 07.00 - 11.00", 38, 60000, 4.8);
+        add("Dr. Hana", "Kamis 13.00 - 16.00", 30, 70000, 4.4);
+        add("Dr. Arya", "Rabu 16.00 - 20.00", 31, 65000, 4.7);
+        add("Dr. Siska", "Minggu 08.00 - 12.00", 29, 55000, 4.9);
+    }
+
+    public void display(){
+        DokterHewan current = head;
+        while (current != null){
+            System.out.println("|+|=========================|+|");
+            System.out.println("   Nama Dokter : " + current.namaDokter);
+            System.out.println("   Jadwal      : " + current.jadwal);
+            System.out.println("   Umur        : " + current.umurDokter + " Tahun");
+            System.out.println("   Biaya Konsul: Rp " + current.biayaKonsul);
+            System.out.println("   Rating      : " + current.rating);
+            System.out.println("|+|=========================|+|");
+            if (current == tail){
+                break;
             }
             current = current.getNext();
         }
-        return null;
     }
 }

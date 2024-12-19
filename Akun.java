@@ -1,12 +1,15 @@
 public class Akun {
     public String username, password;
+    public int saldo;
+    public RiwayatUser daftarRiwayat;
     private Akun next;
 
     public Akun(String username, String password){
         this.username = username;
         this.password = password;
+        this.saldo = 0;
         this.next = null;
-        RiwayarUser daftarRiwayat = new RiwayarUser();
+        this.daftarRiwayat = new RiwayatUser();
     }
 
     public void setNext(Akun next){

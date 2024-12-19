@@ -2,6 +2,8 @@ public class DokterHewan {
     public String namaDokter, jadwal;
     public int umurDokter, biayaKonsul;
     public double rating;
+
+    public AntrianKonsultasi daftarAntrian;
     private DokterHewan next, prev;
     private AntrianKonsultasi antrian;
 
@@ -12,7 +14,7 @@ public class DokterHewan {
         this.biayaKonsul = biayaKonsul;
         this.rating = rating;
         this.next = null;
-        this.antrian = new AntrianKonsultasi();
+        this.daftarAntrian = new AntrianKonsultasi();
     }
 
     public void setNext(DokterHewan next){

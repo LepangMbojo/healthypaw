@@ -1,36 +1,98 @@
-
+import java.util.Scanner;
 public class AntrianKonsultasi {
+    Scanner scanner = new Scanner(System.in);
     Antrian front, rear;
+    DiagnosaTree diagnosa = new DiagnosaTree();
 
-    public void enqueue(Antrian Hewan) {
+    public void enqueue(String username, String jenisHewan, int umur, int beratHewan) {
+        Antrian newAntrian = new Antrian(username, jenisHewan, umur, beratHewan);
         if (rear == null) {
-            front = Hewan;
-            rear = Hewan;
+            front = newAntrian;
+            rear = newAntrian;
         } else {
-            rear.setNext(Hewan);
-            rear = Hewan;
+            rear.setNext(newAntrian);
+            rear = newAntrian;
         }
     }
 
-    public void dequeue(){
+    public Antrian dequeue(){
+        Antrian antrianNode = null;
         if (front == null){
             System.out.println("Antrian anda kosong");
-        } else {
+        } 
+        else {
+            antrianNode = front;
             front = front.getNext();
         }
+        return antrianNode;
     }
-    public void displayQueue() {
-        if (front == null) {
-            System.out.println("Antrian pasien kosong.");
-            return;
-        }
-        Antrian current = front;
-        System.out.println("Daftar pasien yang menunggu:");
 
-        while (current != null) {
-            System.out.println("- " + current.username + " | Jenis Hewan: " + current.jenisHewan + " | Umur: " + current.umur + " | Berat: " + current.beratHewan + "kg");
-            current = current.getNext();
+    public void daftar(Akun user){
+        System.out.print("Masukkan Jenis Hewan: ");
+        String jenisHewan = scanner.nextLine();
+        System.out.print("Masukkan Umur Hewan: ");
+        int umurHewan = scanner.nextInt();
+        System.out.print("Masukkan Berat Hewan: ");
+        int beratHewan = scanner.nextInt();
+        enqueue(user.username, jenisHewan, umurHewan, beratHewan);
+    }
+
+    public void display(Akun user, DokterHewan dokter) {
+        while (true) {
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |  /\\___/\\                | |"  );
+            System.out.println("| | ( 0 . 0 )   HEALTHYPAW  | |");
+            System.out.println("| |   > ^ <                 | |");
+            System.out.println("|+|=========================|+|");
+            if (front == null) {
+                System.out.println("  Antrian Kosong");
+            }
+            Antrian current = front;
+
+            int count = 1;
+            while (current != null) {
+                System.out.println("   " + count + " | " + current.username + " | Jenis Hewan: " + current.jenisHewan + "| Umur:" + current.umur + " Tahun | Berat: " + current.beratHewan + " Kg");
+                count++;
+                current = current.getNext();
+            }
+
+            System.out.print("Back/Daftar/Next: ");
+            String choice = scanner.nextLine();
+            if (choice.equalsIgnoreCase("daftar")){
+                System.out.print("Melakukan Pembayaran (Ya/Tidak): ");
+                String answer = scanner.nextLine();
+                if (answer.equalsIgnoreCase("ya")){
+                    if (pembayaran(user, dokter)){
+                        daftar(user);
+                    }
+                    else {
+                        System.out.println("Dana Tidak Mencukupi");
+                    }
+                }
+            }   
+            else if (choice.equalsIgnoreCase("back")){
+                break;
+            }
+            else if (choice.equalsIgnoreCase("next")){
+                Antrian antrianNode = dequeue();
+                if (user.username == antrianNode.username){
+                    diagnosa.Diagnosis(dokter);
+                    user.daftarRiwayat.push(dokter.namaDokter, antrianNode.jenisHewan, dokter.biayaKonsul, "SELESAI");
+                    break;
+                }
+            }
+            else {
+                System.out.println("Error!!");
+            }
         }
+    }
+
+    public boolean pembayaran(Akun user, DokterHewan dokter){
+        if (user.saldo > dokter.biayaKonsul){
+            user.saldo -= dokter.biayaKonsul;
+            return true;
+        }
+        return false;
     }
 }
 

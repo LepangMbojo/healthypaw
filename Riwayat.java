@@ -1,13 +1,21 @@
 public class Riwayat {
-    public String namaDokter;
-    public String tanggal;
+    public String namaDokter, jenisHewan, status;
     public int biayaKonsul;
-    public Riwayat next;
+    private Riwayat next;
 
-    public Riwayat(String namaDokter, String tanggal, int biayaKonsul) {
+    public Riwayat(String namaDokter, String jenisHewan, String status, int biayaKonsul){
         this.namaDokter = namaDokter;
-        this.tanggal = tanggal;
+        this.jenisHewan = jenisHewan;
+        this.status = status;
         this.biayaKonsul = biayaKonsul;
         this.next = null;
+    }
+
+    public void setNext(Riwayat next){
+        this.next = next;
+    }
+
+    public Riwayat getNext(){
+        return this.next;
     }
 }

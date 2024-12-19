@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class HealthyPaw {
     Scanner scanner = new Scanner(System.in);
-    MenuAwal HPaw = new MenuAwal();
+    MenuUser HPaw = new MenuUser();
     Konsultasi HPawKonsul = new Konsultasi();
 
     void tampilanAwal(){
@@ -71,7 +71,7 @@ public class HealthyPaw {
             System.out.print("   Masukkan Password: ");
             String password = scanner.nextLine();
             if (HPaw.login(username, password)){
-                tampilanMainMenu();
+                tampilanMainMenu(username);
             }
             else {
                 System.out.println("Username atau Password Salah");
@@ -79,7 +79,7 @@ public class HealthyPaw {
         }
     }
 
-    void tampilanMainMenu(){
+    void tampilanMainMenu(String username){
         while (true){
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -90,17 +90,31 @@ public class HealthyPaw {
             System.out.println("|+|=========================|+|");
             System.out.println("| |         RIWAYAT         | |");
             System.out.println("|+|=========================|+|");
+            System.out.println("| |          PROFIL         | |");
+            System.out.println("|+|=========================|+|");
+            System.out.println("| |       TOP UP SALDO      | |");
+            System.out.println("|+|=========================|+|");
             System.out.println("| |         LOG-OUT         | |");
             System.out.println("|+|=========================|+|");
             System.out.print("FITUR: ");
             String answer = scanner.nextLine();
             
             if (answer.equalsIgnoreCase("konsultasi")){
-                HPawKonsul.navigateDoctors();
+                menuKonsultasi(HPaw.getAkun(username));
             }
             else if (answer.equalsIgnoreCase("riwayat")){
-                System.out.println("A");
-                break;
+                Akun user = HPaw.getAkun(username);
+                user.daftarRiwayat.displayRiwayat();
+                answer = scanner.nextLine();
+            }
+            else if (answer.equalsIgnoreCase("profil")){
+                HPaw.profil(HPaw.getAkun(username));
+                answer = scanner.nextLine();
+            }
+            else if (answer.equalsIgnoreCase("top up saldo")){
+                System.out.print("Masukkan Nominal: ");
+                int topUpSaldo = scanner.nextInt();
+                HPaw.topUpSaldo(HPaw.getAkun(username), topUpSaldo);
             }
             else if (answer.equalsIgnoreCase("log-out")){
                 tampilanAwal();
@@ -111,7 +125,7 @@ public class HealthyPaw {
         }
     }
 
-    void menuKonsultasi(){
+    void menuKonsultasi(Akun user){
         while (true) {
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -122,18 +136,30 @@ public class HealthyPaw {
             System.out.println("|+|=========================|+|");
             System.out.println("| |       CARI DOKTER       | |");
             System.out.println("|+|=========================|+|");
+            System.out.println("| |          BACK           | |");
+            System.out.println("|+|=========================|+|");
+            System.out.print("FITUR: ");
+            String answer = scanner.nextLine();
+            
+            if (answer.equalsIgnoreCase("list dokter")){
+                HPawKonsul.navigateDoctors(user);
+            }
+            else if (answer.equalsIgnoreCase("cari dokter")){
+                System.out.print("Masukkan Nama Dokter: ");
+                String namaDokter = scanner.nextLine();
+                HPawKonsul.searchDoctor(namaDokter, user);
+            }
+            else if (answer.equalsIgnoreCase("back")){
+               break;
+            }
+            else {
+                System.out.println("\nErrorr!!");
+            }
         }
     }
 
     public void main(String[] args) {
-        HPawKonsul.add("Dr. Halid", "Senin 13.00 - 16.00", 27, 50000, 4.5);
-        HPawKonsul.add("Dr. Cikey", "Jumat 08.00 - 16.00", 27, 75000, 4.7);
-        HPawKonsul.add("Dr. Jaye", "Selasa 13.00 - 20.00", 27, 50000, 4.8);
-
-        System.out.println(HPawKonsul.head.namaDokter);
-        System.out.println(HPawKonsul.tail.namaDokter);
-        // tampilanAwal();
-        HPawKonsul.navigateDoctors();
+        HPawKonsul.setDokter();
+        tampilanAwal();
     }
-    
 }
