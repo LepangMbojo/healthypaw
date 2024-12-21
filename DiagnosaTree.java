@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class DiagnosaTree {
     public Diagnosa root;
+    Scanner scanner = new Scanner(System.in);
     
     public void addNode(String diagnosaPenyakit, Diagnosa parentNode){
         Diagnosa newNode = new Diagnosa(diagnosaPenyakit);
@@ -42,9 +43,8 @@ public class DiagnosaTree {
 
         System.out.println(nodeDiagnosa.diagnosaPenyakit);
         System.out.print("Ya/Tidak: ");
-
-        Scanner scanner = new Scanner(System.in);
-        String answer = scanner.nextLine().toLowerCase();
+        
+        String answer = scanner.nextLine();
 
         if (answer.equalsIgnoreCase("ya")) {
             startDiagnosa(nodeDiagnosa.getLeft());
@@ -69,5 +69,6 @@ public class DiagnosaTree {
         System.out.println("   Nama Dokter: " + dokter.namaDokter);
         setDiagnosa();
         startDiagnosa(root);
+        String answer = scanner.nextLine();
     }
 }

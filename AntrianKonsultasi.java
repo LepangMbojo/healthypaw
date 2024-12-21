@@ -4,7 +4,7 @@ public class AntrianKonsultasi {
     Antrian front, rear;
     DiagnosaTree diagnosa = new DiagnosaTree();
 
-    public void enqueue(String username, String jenisHewan, int umur, int beratHewan) {
+    public void enqueue(String username, String jenisHewan, double umur, double beratHewan) {
         Antrian newAntrian = new Antrian(username, jenisHewan, umur, beratHewan);
         if (rear == null) {
             front = newAntrian;
@@ -31,9 +31,9 @@ public class AntrianKonsultasi {
         System.out.print("Masukkan Jenis Hewan: ");
         String jenisHewan = scanner.nextLine();
         System.out.print("Masukkan Umur Hewan: ");
-        int umurHewan = scanner.nextInt();
+        double umurHewan = scanner.nextDouble();
         System.out.print("Masukkan Berat Hewan: ");
-        int beratHewan = scanner.nextInt();
+        double beratHewan = scanner.nextDouble();
         enqueue(user.username, jenisHewan, umurHewan, beratHewan);
     }
 
@@ -51,7 +51,7 @@ public class AntrianKonsultasi {
 
             int count = 1;
             while (current != null) {
-                System.out.println("   " + count + " | " + current.username + " | Jenis Hewan: " + current.jenisHewan + "| Umur:" + current.umur + " Tahun | Berat: " + current.beratHewan + " Kg");
+                System.out.println("   " + count + " | " + current.username + " | Jenis Hewan: " + current.jenisHewan + " | Umur: " + current.umur + " Tahun | Berat: " + current.beratHewan + " Kg");
                 count++;
                 current = current.getNext();
             }
@@ -68,6 +68,7 @@ public class AntrianKonsultasi {
                     else {
                         System.out.println("Dana Tidak Mencukupi");
                     }
+                    answer = scanner.nextLine();
                 }
             }   
             else if (choice.equalsIgnoreCase("back")){
@@ -88,7 +89,7 @@ public class AntrianKonsultasi {
     }
 
     public boolean pembayaran(Akun user, DokterHewan dokter){
-        if (user.saldo > dokter.biayaKonsul){
+        if (user.saldo >= dokter.biayaKonsul){
             user.saldo -= dokter.biayaKonsul;
             return true;
         }

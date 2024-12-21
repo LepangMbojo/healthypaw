@@ -1,9 +1,9 @@
 public class Antrian {
     public String username, jenisHewan;
-    public int umur, beratHewan;
+    public double umur, beratHewan;
     private Antrian next;
 
-    public Antrian(String username, String jenisHewan, int umur, int beratHewan){
+    public Antrian(String username, String jenisHewan, double umur, double beratHewan){
         this.username = username;
         this.jenisHewan = jenisHewan;
         this.umur = umur;

@@ -57,7 +57,7 @@ public class RiwayatUser {
             System.out.println("   Nama Dokter : " + current.namaDokter);
             System.out.println("   Jenis Hewan : " + current.jenisHewan);
             System.out.println("   Biaya Konsul: Rp " + current.biayaKonsul);
-            System.out.println("   Status      : Rp " + current.status);
+            System.out.println("   Status      : " + current.status);
             System.out.println("|+|=========================|+|");
             current = current.getNext();
         }
