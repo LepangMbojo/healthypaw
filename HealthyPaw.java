@@ -5,7 +5,7 @@ public class HealthyPaw {
     MenuUser HPaw = new MenuUser();
     Konsultasi HPawKonsul = new Konsultasi();
 
-    void tampilanAwal(){
+    private void tampilanAwal(){
         while (true) {
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -32,7 +32,7 @@ public class HealthyPaw {
         }
     }
 
-    void tampilanSignUp(){
+    private void tampilanSignUp(){
         while (true){
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -57,7 +57,7 @@ public class HealthyPaw {
         }
     }
 
-    void tampilanLogIn(){
+    private void tampilanLogIn(){
         while (true){
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -84,7 +84,7 @@ public class HealthyPaw {
         }
     }
 
-    void tampilanMainMenu(String username){
+    private void tampilanMainMenu(String username){
         while (true){
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -131,7 +131,7 @@ public class HealthyPaw {
         }
     }
 
-    void menuKonsultasi(Akun user){
+    private void menuKonsultasi(Akun user){
         while (true) {
             System.out.println("|+|=========================|+|");
             System.out.println("| |  /\\___/\\                | |"  );
@@ -164,7 +164,7 @@ public class HealthyPaw {
         }
     }
 
-    public void main(String[] args) {
+    public void runHealthyPaw() {
         HPawKonsul.setDokter();
         tampilanAwal();
     }
