@@ -179,20 +179,4 @@ public class Konsultasi {
         add("Dr. Siska", "Minggu 08.00 - 12.00", 29, 55000, 4.9);
     }
 
-    public void display(){
-        DokterHewan current = head;
-        while (current != null){
-            System.out.println("|+|=========================|+|");
-            System.out.println("   Nama Dokter : " + current.namaDokter);
-            System.out.println("   Jadwal      : " + current.jadwal);
-            System.out.println("   Umur        : " + current.umurDokter + " Tahun");
-            System.out.println("   Biaya Konsul: Rp " + current.biayaKonsul);
-            System.out.println("   Rating      : " + current.rating);
-            System.out.println("|+|=========================|+|");
-            if (current == tail){
-                break;
-            }
-            current = current.getNext();
-        }
-    }
 }
