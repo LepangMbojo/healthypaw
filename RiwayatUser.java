@@ -20,11 +20,13 @@ public class RiwayatUser {
         }
     }
 
-    public void pop() {
+    public Riwayat pop() {
         if (isEmpty()) {
-            return;
+            return null;
         }
+        Riwayat riwayatPop = top;
         top = top.getNext();
+        return riwayatPop;
     }
 
     public void clear() {
@@ -76,7 +78,6 @@ public class RiwayatUser {
                 System.out.println("Error!!!");
             }
         }
-        
         
     }
 }

@@ -5,7 +5,6 @@ public class DokterHewan {
 
     public AntrianKonsultasi daftarAntrian;
     private DokterHewan next, prev;
-    private AntrianKonsultasi antrian;
 
     public DokterHewan(String namaDokter, String jadwal, int umurDokter, int biayaKonsul, double rating){
         this.namaDokter = namaDokter;
@@ -31,9 +30,6 @@ public class DokterHewan {
 
     public DokterHewan getPrev(){
         return this.prev;
-    }
-    public AntrianKonsultasi getAntrian() {
-        return antrian;
     }
 
 }
